@@ -5,8 +5,6 @@ const TERMINAL_LINES = [
   'Embedded Software & Edge AI Developer',
   '',
   'focus = ["CAN", "STM32", "Machine Learning", "IoT"]',
-  '',
-  'status = "open to internships and technical projects"',
 ];
 
 export function TerminalCard() {

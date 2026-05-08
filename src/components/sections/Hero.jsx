@@ -1,8 +1,40 @@
 import { motion } from 'framer-motion';
 import { ArrowDownRight } from 'lucide-react';
+import { useState, useEffect } from 'react';
 import { Button } from '../ui/Button.jsx';
 import { TerminalCard } from '../ui/TerminalCard.jsx';
 import { useMotionPrefs } from '../../utils/motion.js';
+
+const FULL_NAME = 'Melisa Araç';
+
+function TypewriterName() {
+  const [displayed, setDisplayed] = useState('');
+  const { reduced } = useMotionPrefs();
+
+  useEffect(() => {
+    if (reduced) {
+      setDisplayed(FULL_NAME);
+      return;
+    }
+    let i = 0;
+    setDisplayed('');
+    const timer = setInterval(() => {
+      i++;
+      setDisplayed(FULL_NAME.slice(0, i));
+      if (i >= FULL_NAME.length) clearInterval(timer);
+    }, 90);
+    return () => clearInterval(timer);
+  }, [reduced]);
+
+  return (
+    <>
+      {displayed}
+      {displayed.length < FULL_NAME.length && (
+        <span className="motion-safe-pulse ml-0.5 inline-block h-[0.85em] w-[3px] animate-pulse bg-accent-blue align-middle opacity-80" />
+      )}
+    </>
+  );
+}
 
 export function Hero() {
   const { fadeUp, staggerContainer, reduced } = useMotionPrefs();
@@ -20,7 +52,7 @@ export function Hero() {
           <motion.div variants={fadeUp}>
             <p className="font-mono text-xs uppercase tracking-[0.25em] text-accent-violet/90">Portfolio</p>
             <h1 className="mt-4 font-display text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">
-              Melisa Araç
+              <TypewriterName />
             </h1>
             <p className="mt-3 font-display text-lg text-accent-blue sm:text-xl">Computer Engineering Student</p>
             <p className="mt-6 max-w-xl text-sm leading-relaxed text-neutral-400 sm:text-base">
