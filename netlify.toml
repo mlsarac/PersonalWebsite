@@ -1,3 +1,5 @@
+# Build: Netlify “URL” değişkeni (özel domain veya *.netlify.app) Vite ile canonical / og:url içine yazılır.
+# İstersen Site settings → Environment variables → VITE_SITE_URL = https://senin-domainin.com (sonda / yok)
 [build]
   command = "npm run build"
   publish = "dist"
