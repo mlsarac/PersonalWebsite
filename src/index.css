@@ -1,0 +1,243 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply font-sans text-neutral-200 antialiased;
+    background-color: #030712;
+    background-image:
+      radial-gradient(ellipse 120% 80% at 50% -20%, rgb(37 99 235 / 0.12), transparent 52%),
+      radial-gradient(ellipse 75% 45% at 100% 15%, rgb(30 58 138 / 0.14), transparent 48%),
+      linear-gradient(to bottom, #030712, #040912 44%, #030712);
+    background-attachment: fixed;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    .motion-safe-pulse {
+      animation: none !important;
+    }
+
+    .cursor-blink,
+    .cursor-blink-block {
+      animation: none !important;
+    }
+
+    .bg-glow-drift-a,
+    .bg-glow-drift-b,
+    .bg-grid-drift,
+    .particle,
+    .timeline-node {
+      animation: none !important;
+    }
+
+    .ambient-glow-pulse,
+    .nav-link-premium::after {
+      animation: none !important;
+    }
+  }
+}
+
+@layer utilities {
+  .bg-grid {
+    background-image: linear-gradient(
+        rgba(255, 255, 255, 0.035) 1px,
+        transparent 1px
+      ),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+
+  .bg-grid-drift {
+    animation: grid-drift 90s linear infinite;
+  }
+
+  @keyframes grid-drift {
+    0% {
+      background-position: 0 0;
+    }
+    100% {
+      background-position: 48px 48px;
+    }
+  }
+
+  .cursor-blink {
+    animation: cursor-blink 1.05s steps(1, end) infinite;
+    min-width: 0.35em;
+  }
+
+  @keyframes cursor-blink {
+    0%,
+    49% {
+      opacity: 1;
+    }
+    50%,
+    100% {
+      opacity: 0;
+    }
+  }
+
+  .cursor-blink-block {
+    animation: cursor-blink-block 0.95s steps(1, end) infinite;
+  }
+
+  @keyframes cursor-blink-block {
+    0%,
+    49% {
+      opacity: 1;
+    }
+    50%,
+    100% {
+      opacity: 0.12;
+    }
+  }
+
+  .bg-glow-drift-a {
+    animation: glow-drift-a 18s ease-in-out infinite;
+  }
+
+  .bg-glow-drift-b {
+    animation: glow-drift-b 22s ease-in-out infinite;
+  }
+
+  @keyframes glow-drift-a {
+    0%,
+    100% {
+      opacity: 0.4;
+      transform: translate(-48%, -12%) scale(1);
+    }
+    50% {
+      opacity: 0.75;
+      transform: translate(-52%, -20%) scale(1.08);
+    }
+  }
+
+  @keyframes glow-drift-b {
+    0%,
+    100% {
+      opacity: 0.3;
+      transform: translate(8%, 4%) scale(1);
+    }
+    50% {
+      opacity: 0.65;
+      transform: translate(-6%, -6%) scale(1.12);
+    }
+  }
+
+  .particle {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    border-radius: 9999px;
+    background: rgb(148 163 184 / 0.4);
+    box-shadow: 0 0 8px rgb(56 189 248 / 0.15);
+  }
+
+  .particle-1 {
+    left: 12%;
+    top: 22%;
+    animation: float-p 32s ease-in-out infinite;
+  }
+
+  .particle-2 {
+    right: 18%;
+    top: 38%;
+    animation: float-p 28s ease-in-out infinite 2s;
+  }
+
+  .particle-3 {
+    left: 42%;
+    bottom: 30%;
+    animation: float-p 36s ease-in-out infinite 4s;
+  }
+
+  .particle-4 {
+    right: 28%;
+    bottom: 18%;
+    animation: float-p 30s ease-in-out infinite 1s;
+  }
+
+  @keyframes float-p {
+    0%,
+    100% {
+      opacity: 0.25;
+      transform: translate(0, 0);
+    }
+    33% {
+      opacity: 0.55;
+      transform: translate(12px, -18px);
+    }
+    66% {
+      opacity: 0.35;
+      transform: translate(-8px, 10px);
+    }
+  }
+
+  .timeline-node {
+    animation: pulse-node 2.8s ease-in-out infinite;
+  }
+
+  @keyframes pulse-node {
+    0%,
+    100% {
+      box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.08);
+    }
+    50% {
+      box-shadow: 0 0 14px 1px rgba(56, 189, 248, 0.22);
+    }
+  }
+
+  /** Navbar link: ince gradient alt çizgi (hover) */
+  .nav-link-premium {
+    position: relative;
+    display: inline-block;
+  }
+
+  .nav-link-premium::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -3px;
+    height: 1px;
+    transform: scaleX(0);
+    transform-origin: 50% 50%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(56, 189, 248, 0.45),
+      rgba(139, 92, 246, 0.35),
+      transparent
+    );
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .nav-link-premium:hover::after {
+    transform: scaleX(1);
+  }
+
+  /** Arka plan orta glow: çok hafif nabız */
+  .ambient-glow-pulse {
+    animation: ambient-glow-pulse 18s ease-in-out infinite;
+  }
+
+  @keyframes ambient-glow-pulse {
+    0%,
+    100% {
+      opacity: 0.55;
+      filter: blur(80px);
+    }
+    50% {
+      opacity: 0.82;
+      filter: blur(88px);
+    }
+  }
+}
